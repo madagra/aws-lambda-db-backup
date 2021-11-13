@@ -81,11 +81,7 @@ def register_snapshot_repository(awsauth: AWS4Auth):
 def take_snapshot(awsauth: AWS4Auth):
     """Take a snapshot of the OpenSearch domain by appending a date to the basename given in the environment"""
 
-    if snapshot_name_base is None:
-        name = f"my-es-snapshot-{str(uuid4())}"
-    else:
-        name = snapshot_name_base
-        name = name + datetime.today().strftime('%Y_%m_%d-%H_%M_%S')
+    name = snapshot_name_base + datetime.today().strftime('%Y_%m_%d-%H_%M_%S')
 
     path = f"_snapshot/{snapshot_repo}/{name}"
     url = host + path
